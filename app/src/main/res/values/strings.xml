@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SlickDealsApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_category">Category</string>
+    <string name="action_offer">Offer</string>
+    <string name="action_stores">stores</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_offer"> </string>
+    <string name="title_activity_category">CategoryActivity</string>
+    <string name="title_activity_registration">Login</string>
+    <string name="action_login">Login</string>
+</resources>

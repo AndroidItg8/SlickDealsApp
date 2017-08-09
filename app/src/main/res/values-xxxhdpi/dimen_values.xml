@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!---OfferDescription Page-->
+    <dimen name="textViewSize">15sp</dimen>
+
+</resources>
