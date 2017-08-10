@@ -30,7 +30,6 @@
                     android:fitsSystemWindows="true"
                     android:minHeight="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
             </android.support.design.widget.CollapsingToolbarLayout>

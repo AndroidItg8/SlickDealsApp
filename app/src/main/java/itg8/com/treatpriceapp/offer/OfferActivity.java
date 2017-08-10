@@ -13,7 +13,10 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +42,16 @@ public class OfferActivity extends AppCompatActivity implements OfferDescription
     FetchBehaviorListener behaviorListener;
     @BindView(R.id.cardView)
     CardView cardView;
+    @BindView(R.id.lbl_category)
+    TextView lblCategory;
+    @BindView(R.id.lbl_name)
+    TextView lblName;
+    @BindView(R.id.view)
+    View view;
+    @BindView(R.id.floatingActionButton)
+    ImageButton floatingActionButton;
+    @BindView(R.id.btn_share)
+    ImageButton btnShare;
 
     public void setListener(FetchBehaviorListener listener) {
 //        this.behaviorListener = listener;
@@ -54,7 +67,12 @@ public class OfferActivity extends AppCompatActivity implements OfferDescription
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         collapsing.setCollapsedTitleTextColor(Color.TRANSPARENT);
-
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                lblName.setTranslationY(verticalOffset);
+            }
+        });
         setFragment();
 
         new Handler().postDelayed(new Runnable() {
@@ -88,7 +106,7 @@ public class OfferActivity extends AppCompatActivity implements OfferDescription
     public void onScroll(int offset) {
         fab.setTranslationY(offset);
 
-        Log.d(getClass().getSimpleName(),"Offset:"+offset);
+        Log.d(getClass().getSimpleName(), "Offset:" + offset);
     }
 
     public interface FetchBehaviorListener {
