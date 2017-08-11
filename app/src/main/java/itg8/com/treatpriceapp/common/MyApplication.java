@@ -9,6 +9,7 @@ public class MyApplication extends Application {
     private static final String MY_PREF_NAME = "TreatProcePref";
 
      private static MyApplication mInstance;
+    private boolean categoryDownloaded;
 
     public static synchronized MyApplication getInstance(){
         return mInstance;
@@ -28,5 +29,14 @@ public class MyApplication extends Application {
                 .setPrefsName(MY_PREF_NAME)
                 .setUseDefaultSharedPreference(true)
                 .build();
+    }
+
+
+    public void setCategoryDownloaded(boolean categoryDownloaded) {
+        this.categoryDownloaded = categoryDownloaded;
+    }
+
+    public boolean isCategoryDownloaded() {
+        return categoryDownloaded;
     }
 }

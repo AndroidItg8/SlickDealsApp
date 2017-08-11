@@ -1,5 +1,6 @@
 package itg8.com.treatpriceapp.registration.mvp.presenter;
 
+import itg8.com.treatpriceapp.common.CommonMethod;
 import itg8.com.treatpriceapp.common.RetroAPI;
 import itg8.com.treatpriceapp.common.RetrofitClass;
 import itg8.com.treatpriceapp.common.common_interface.BaseLoginView;
@@ -44,7 +45,7 @@ public class LoginViewPresenterImp extends BaseLoginView implements LoginViewPre
     public void onSendLoginInfoToServer(String email, String password, String type) {
         if (view != null) {
             onProgressShow();
-            module.onSendDataToServer(RetrofitClass.getInstance().getRetrofit().create(RetroAPI.class), email, password, type);
+            module.onSendDataToServer(RetrofitClass.getInstance().getRetrofit(CommonMethod.O_SHOP), email, password, type);
         }
 
 
@@ -54,7 +55,7 @@ public class LoginViewPresenterImp extends BaseLoginView implements LoginViewPre
     public void onSendSignUpInfoToServer(String name, String email, String mobile, String password) {
         if (view != null) {
             onProgressShow();
-            module.onSendSignUpInfoToServer(RetrofitClass.getInstance().getRetrofit().create(RetroAPI.class), name, email, mobile, password);
+            module.onSendSignUpInfoToServer(RetrofitClass.getInstance().getRetrofit(CommonMethod.O_SHOP), name, email, mobile, password);
         }
     }
 
@@ -62,7 +63,7 @@ public class LoginViewPresenterImp extends BaseLoginView implements LoginViewPre
     public void onSendFogetEmailToServer(String email) {
         if (view != null) {
             onProgressShow();
-            module.onSendEmailToServer(RetrofitClass.getInstance().getRetrofit().create(RetroAPI.class), email);
+            module.onSendEmailToServer(RetrofitClass.getInstance().getRetrofit(CommonMethod.O_SHOP), email);
         }
     }
 

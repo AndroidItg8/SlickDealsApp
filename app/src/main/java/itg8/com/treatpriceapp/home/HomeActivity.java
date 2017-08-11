@@ -1,5 +1,6 @@
 package itg8.com.treatpriceapp.home;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -16,18 +17,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import itg8.com.treatpriceapp.R;
 import itg8.com.treatpriceapp.category.CategoryActivity;
 import itg8.com.treatpriceapp.common.CommonMethod;
+import itg8.com.treatpriceapp.common.Logger;
+import itg8.com.treatpriceapp.common.NetworkCall;
+import itg8.com.treatpriceapp.db.DBHelper;
 import itg8.com.treatpriceapp.home.fragment.OfferFragment;
 import itg8.com.treatpriceapp.offer.OfferActivity;
 import itg8.com.treatpriceapp.registration.RegistrationActivity;
 import itg8.com.treatpriceapp.registration.mvp.presenter.LoginViewPresenter;
+import itg8.com.treatpriceapp.service.BaseService;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class HomeActivity extends AppCompatActivity  {
+public class HomeActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks  {
 
+    private static final int RC_STORAGE = 12;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.collapsing)
@@ -67,6 +81,7 @@ public class HomeActivity extends AppCompatActivity  {
             return false;
         }
     };
+    private boolean extported=false;
 
     private void setFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
@@ -81,6 +96,11 @@ public class HomeActivity extends AppCompatActivity  {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        hashmapTest();
+
+
+        startService(new Intent(this, BaseService.class));
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
             viewPager.setPagingEnabled(true);
@@ -103,6 +123,10 @@ public class HomeActivity extends AppCompatActivity  {
 
     }
 
+    private void hashmapTest() {
+        NetworkCall call=new NetworkCall();
+        call.printList();
+    }
 
 
     @Override
@@ -123,6 +147,7 @@ public class HomeActivity extends AppCompatActivity  {
        switch (item.getItemId())
        {
            case R.id.action_settings:
+                    checkPermissionToWrite();
                break;
 
            case R.id.action_login:
@@ -135,11 +160,39 @@ public class HomeActivity extends AppCompatActivity  {
 
         return super.onOptionsItemSelected(item);
     }
-     public void callRegistrationActvity(String from , Intent intent){
+
+    @AfterPermissionGranted(RC_STORAGE)
+    private void checkPermissionToWrite() {
+        if(EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE)){
+            extported=true;
+            CommonMethod.exportDatabse(DBHelper.DB_NAME,this);
+        }else {
+            EasyPermissions.requestPermissions(this,getString(R.string.rationale_storage_permission),RC_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode,permissions,grantResults,this);
+    }
+
+    public void callRegistrationActvity(String from , Intent intent){
          intent.putExtra(CommonMethod.FromRegistration,"");
        //  Animation bottomUp = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottom_up);
          startActivity(intent);
      }
 
 
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+            if(!extported){
+                CommonMethod.exportDatabse(DBHelper.DB_NAME,this);
+            }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+
+    }
 }
