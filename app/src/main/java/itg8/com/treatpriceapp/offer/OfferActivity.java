@@ -21,6 +21,12 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import itg8.com.treatpriceapp.R;
+import itg8.com.treatpriceapp.common.CommonMethod;
+import itg8.com.treatpriceapp.common.MyApplication;
+import itg8.com.treatpriceapp.home.model.tdaysDeals.Category_;
+import itg8.com.treatpriceapp.home.model.tdaysDeals.Merchant;
+import itg8.com.treatpriceapp.home.model.tdaysDeals.Product;
+import itg8.com.treatpriceapp.home.model.tdaysDeals.Resources;
 import itg8.com.treatpriceapp.offer.fragment.OfferDescriptionFragment;
 
 public class OfferActivity extends AppCompatActivity implements OfferDescriptionFragment.RecyclerViewScrollListener {
@@ -73,8 +79,8 @@ public class OfferActivity extends AppCompatActivity implements OfferDescription
                 lblName.setTranslationY(verticalOffset);
             }
         });
-        setFragment();
 
+        getIntentData();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -86,9 +92,30 @@ public class OfferActivity extends AppCompatActivity implements OfferDescription
         }, 100);
     }
 
-    private void setFragment() {
+    private void getIntentData() {
+        if(getIntent().hasExtra(CommonMethod.PRODUCT_DESC)){
+            Product product=getIntent().getParcelableExtra(CommonMethod.PRODUCT_DESC);
+            Resources resources=getIntent().getParcelableExtra(CommonMethod.PRODUCT_RESOURCE);
+           setOtherDetails(product);
+            setFragment(product);
+        }
+    }
+
+    private void setOtherDetails(Product product) {
+        lblName.setText(product.getName());
+//        .getCategory(product.getCategory());
+//        if(categoryName!=null)
+//            lblCategory.setText(categoryName.getName());
+        if(product.getOfferCount()>0) {
+            Merchant m = MyApplication.getInstance().getMerchant(product.getOffers().getOffer().get(0).getMerchant());
+            lblCategory.setText(m.getName());
+        }
+
+    }
+
+    private void setFragment(Product product) {
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.offerFrameLayout, OfferDescriptionFragment.newInstance("", "")).commit();
+        fm.beginTransaction().replace(R.id.offerFrameLayout, OfferDescriptionFragment.newInstance(product)).commit();
     }
 
     @Override

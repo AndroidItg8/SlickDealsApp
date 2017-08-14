@@ -4,6 +4,8 @@ import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import itg8.com.treatpriceapp.BuildConfig;
 import itg8.com.treatpriceapp.category.model.CategoriesModel;
+import itg8.com.treatpriceapp.home.model.tdaysDeals.ProductsModel;
+import itg8.com.treatpriceapp.merchants.model.MerchantTypeModel;
 import itg8.com.treatpriceapp.registration.loginmodel.LoginModel;
 import itg8.com.treatpriceapp.registration.model.SignUpModel;
 import okhttp3.ResponseBody;
@@ -45,4 +47,9 @@ public interface RetroAPI {
     @GET("categories.json")
         Observable<CategoriesModel> getCategories(@Query("account") String acc);
 
+    @GET("merchant_types.json")
+    Observable<MerchantTypeModel> getMerchantTypes(@Query("account") String acc);
+
+    @GET("products.json")
+    Observable<ProductsModel> getProducts(@Query("account") String apia, @Query("catalog") String apic,@Query("page") int page);
 }

@@ -27,6 +27,9 @@ public class Deal implements Parcelable
     @SerializedName("deal_type")
     @Expose
     private String dealType;
+    @SerializedName("restrictions")
+    @Expose
+    private String restrictions;
     @SerializedName("sku")
     @Expose
     private String sku;
@@ -39,6 +42,15 @@ public class Deal implements Parcelable
     @SerializedName("end_on")
     @Expose
     private String endOn;
+    @SerializedName("image_url")
+    @Expose
+    private String imageUrl;
+    @SerializedName("code")
+    @Expose
+    private String code;
+    @SerializedName("description")
+    @Expose
+    private String description;
     public final static Parcelable.Creator<Deal> CREATOR = new Creator<Deal>() {
 
 
@@ -52,10 +64,14 @@ public class Deal implements Parcelable
             instance.url = ((String) in.readValue((String.class.getClassLoader())));
             instance.merchant = ((int) in.readValue((int.class.getClassLoader())));
             instance.dealType = ((String) in.readValue((String.class.getClassLoader())));
+            instance.restrictions = ((String) in.readValue((String.class.getClassLoader())));
             instance.sku = ((String) in.readValue((String.class.getClassLoader())));
             instance.siteWide = ((String) in.readValue((String.class.getClassLoader())));
             instance.startOn = ((String) in.readValue((String.class.getClassLoader())));
             instance.endOn = ((String) in.readValue((String.class.getClassLoader())));
+            instance.imageUrl = ((String) in.readValue((String.class.getClassLoader())));
+            instance.code = ((String) in.readValue((String.class.getClassLoader())));
+            instance.description = ((String) in.readValue((String.class.getClassLoader())));
             return instance;
         }
 
@@ -159,6 +175,24 @@ public class Deal implements Parcelable
     /**
      * 
      * @return
+     *     The restrictions
+     */
+    public String getRestrictions() {
+        return restrictions;
+    }
+
+    /**
+     * 
+     * @param restrictions
+     *     The restrictions
+     */
+    public void setRestrictions(String restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    /**
+     * 
+     * @return
      *     The sku
      */
     public String getSku() {
@@ -228,16 +262,74 @@ public class Deal implements Parcelable
         this.endOn = endOn;
     }
 
+    /**
+     * 
+     * @return
+     *     The imageUrl
+     */
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    /**
+     * 
+     * @param imageUrl
+     *     The image_url
+     */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    /**
+     * 
+     * @return
+     *     The code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * 
+     * @param code
+     *     The code
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    /**
+     * 
+     * @return
+     *     The description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * 
+     * @param description
+     *     The description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeValue(name);
         dest.writeValue(url);
         dest.writeValue(merchant);
         dest.writeValue(dealType);
+        dest.writeValue(restrictions);
         dest.writeValue(sku);
         dest.writeValue(siteWide);
         dest.writeValue(startOn);
         dest.writeValue(endOn);
+        dest.writeValue(imageUrl);
+        dest.writeValue(code);
+        dest.writeValue(description);
     }
 
     public int describeContents() {

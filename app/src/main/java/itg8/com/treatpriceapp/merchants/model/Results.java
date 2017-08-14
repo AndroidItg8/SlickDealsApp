@@ -1,5 +1,5 @@
 
-package itg8.com.treatpriceapp.home.model.tdaysDeals;
+package itg8.com.treatpriceapp.merchants.model;
 
 import javax.annotation.Generated;
 import javax.validation.Valid;
@@ -13,14 +13,10 @@ import com.google.gson.annotations.SerializedName;
 public class Results implements Parcelable
 {
 
-    @SerializedName("products")
+    @SerializedName("merchant_types")
     @Expose
     @Valid
-    private Products products;
-    @SerializedName("deals")
-    @Expose
-    @Valid
-    private Deals deals;
+    private MerchantTypes merchantTypes;
     public final static Parcelable.Creator<Results> CREATOR = new Creator<Results>() {
 
 
@@ -29,8 +25,7 @@ public class Results implements Parcelable
         })
         public Results createFromParcel(Parcel in) {
             Results instance = new Results();
-            instance.products = ((Products) in.readValue((Products.class.getClassLoader())));
-            instance.deals = ((Deals) in.readValue((Deals.class.getClassLoader())));
+            instance.merchantTypes = ((MerchantTypes) in.readValue((MerchantTypes.class.getClassLoader())));
             return instance;
         }
 
@@ -44,42 +39,23 @@ public class Results implements Parcelable
     /**
      * 
      * @return
-     *     The products
+     *     The merchantTypes
      */
-    public Products getProducts() {
-        return products;
+    public MerchantTypes getMerchantTypes() {
+        return merchantTypes;
     }
 
     /**
      * 
-     * @param products
-     *     The products
+     * @param merchantTypes
+     *     The merchant_types
      */
-    public void setProducts(Products products) {
-        this.products = products;
-    }
-
-    /**
-     * 
-     * @return
-     *     The deals
-     */
-    public Deals getDeals() {
-        return deals;
-    }
-
-    /**
-     * 
-     * @param deals
-     *     The deals
-     */
-    public void setDeals(Deals deals) {
-        this.deals = deals;
+    public void setMerchantTypes(MerchantTypes merchantTypes) {
+        this.merchantTypes = merchantTypes;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(products);
-        dest.writeValue(deals);
+        dest.writeValue(merchantTypes);
     }
 
     public int describeContents() {

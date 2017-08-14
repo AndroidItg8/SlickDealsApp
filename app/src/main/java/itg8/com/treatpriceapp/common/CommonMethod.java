@@ -27,6 +27,8 @@ public class CommonMethod {
     public static final String P_BASE_URL = "http://api.popshops.com/v3/";
     public static final String APIA ="65og5t3ou58puelfx0g84mxto";
     public static final String APIC ="850dviorepytjfvesvgn2j5re";
+    public static final String PRODUCT_DESC = "product_desc";
+    public static final String PRODUCT_RESOURCE = "product_resources";
     public static String FromRegistration="FromRegistration";
 
     /** check Internet Connection**/

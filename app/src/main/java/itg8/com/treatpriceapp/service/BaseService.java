@@ -14,6 +14,7 @@ import itg8.com.treatpriceapp.common.Logger;
 import itg8.com.treatpriceapp.common.MyApplication;
 import itg8.com.treatpriceapp.db.DBHelper;
 import itg8.com.treatpriceapp.db.tbl.TblCategory;
+import itg8.com.treatpriceapp.db.tbl.TblMerchantType;
 
 /**
  * Created by itg_Android on 8/11/2017.
@@ -22,14 +23,17 @@ import itg8.com.treatpriceapp.db.tbl.TblCategory;
 public class BaseService extends OrmLiteBaseService<DBHelper> implements DownloadManager {
 
     private Dao<TblCategory, String> catDao;
+    private Dao<TblMerchantType, String> merchantTypeDao;
     private DownloadManagerImp manager;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
             catDao=getHelper().getCategoryDao();
+            merchantTypeDao=getHelper().getMerchantTypeDao();
             manager=new DownloadManagerImp(this);
             manager.downloadCategories();
+            manager.downloadMerchantType();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,7 +66,15 @@ public class BaseService extends OrmLiteBaseService<DBHelper> implements Downloa
     }
 
     @Override
-    public void onMerchantListAvailable() {
-
+    public void onMerchantTypeListAvailable(List<TblMerchantType> tblMerchantTypes) {
+        for (TblMerchantType type :
+                tblMerchantTypes) {
+            try {
+                TblMerchantType t=merchantTypeDao.createIfNotExists(type);
+                Logger.i(t.getpId());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

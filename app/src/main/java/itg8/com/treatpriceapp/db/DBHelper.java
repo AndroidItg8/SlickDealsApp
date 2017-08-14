@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 import itg8.com.treatpriceapp.db.tbl.TblCategory;
+import itg8.com.treatpriceapp.db.tbl.TblMerchantType;
 
 /**
  * Created by itg_Android on 8/11/2017.
@@ -24,6 +25,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     private static final int DB_VERSION = 1;
 
     private Dao<TblCategory,String> categoryDao;
+    private Dao<TblMerchantType,String> merchantTypeDao;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -35,6 +37,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource,TblCategory.class);
+            TableUtils.createTable(connectionSource,TblMerchantType.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,6 +47,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource,TblCategory.class,true);
+            TableUtils.dropTable(connectionSource,TblMerchantType.class,true);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,4 +60,10 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         return categoryDao;
     }
 
+    public Dao<TblMerchantType, String> getMerchantTypeDao()  throws SQLException{
+        if(merchantTypeDao==null)
+            merchantTypeDao=getDao(TblMerchantType.class);
+
+        return merchantTypeDao;
+    }
 }

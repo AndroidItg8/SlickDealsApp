@@ -13,26 +13,22 @@ import com.google.gson.annotations.SerializedName;
 public class Resources implements Parcelable
 {
 
-    @SerializedName("countries")
-    @Expose
-    @Valid
-    private Countries countries;
     @SerializedName("deal_types")
     @Expose
     @Valid
     private DealTypes dealTypes;
+    @SerializedName("brands")
+    @Expose
+    @Valid
+    private Brands brands;
     @SerializedName("merchants")
     @Expose
     @Valid
     private Merchants merchants;
-    @SerializedName("merchant_types")
+    @SerializedName("categories")
     @Expose
     @Valid
-    private MerchantTypes merchantTypes;
-    @SerializedName("networks")
-    @Expose
-    @Valid
-    private Networks networks;
+    private Categories categories;
     public final static Parcelable.Creator<Resources> CREATOR = new Creator<Resources>() {
 
 
@@ -41,11 +37,10 @@ public class Resources implements Parcelable
         })
         public Resources createFromParcel(Parcel in) {
             Resources instance = new Resources();
-            instance.countries = ((Countries) in.readValue((Countries.class.getClassLoader())));
             instance.dealTypes = ((DealTypes) in.readValue((DealTypes.class.getClassLoader())));
+            instance.brands = ((Brands) in.readValue((Brands.class.getClassLoader())));
             instance.merchants = ((Merchants) in.readValue((Merchants.class.getClassLoader())));
-            instance.merchantTypes = ((MerchantTypes) in.readValue((MerchantTypes.class.getClassLoader())));
-            instance.networks = ((Networks) in.readValue((Networks.class.getClassLoader())));
+            instance.categories = ((Categories) in.readValue((Categories.class.getClassLoader())));
             return instance;
         }
 
@@ -55,24 +50,6 @@ public class Resources implements Parcelable
 
     }
     ;
-
-    /**
-     * 
-     * @return
-     *     The countries
-     */
-    public Countries getCountries() {
-        return countries;
-    }
-
-    /**
-     * 
-     * @param countries
-     *     The countries
-     */
-    public void setCountries(Countries countries) {
-        this.countries = countries;
-    }
 
     /**
      * 
@@ -90,6 +67,24 @@ public class Resources implements Parcelable
      */
     public void setDealTypes(DealTypes dealTypes) {
         this.dealTypes = dealTypes;
+    }
+
+    /**
+     * 
+     * @return
+     *     The brands
+     */
+    public Brands getBrands() {
+        return brands;
+    }
+
+    /**
+     * 
+     * @param brands
+     *     The brands
+     */
+    public void setBrands(Brands brands) {
+        this.brands = brands;
     }
 
     /**
@@ -113,45 +108,26 @@ public class Resources implements Parcelable
     /**
      * 
      * @return
-     *     The merchantTypes
+     *     The categories
      */
-    public MerchantTypes getMerchantTypes() {
-        return merchantTypes;
+    public Categories getCategories() {
+        return categories;
     }
 
     /**
      * 
-     * @param merchantTypes
-     *     The merchant_types
+     * @param categories
+     *     The categories
      */
-    public void setMerchantTypes(MerchantTypes merchantTypes) {
-        this.merchantTypes = merchantTypes;
-    }
-
-    /**
-     * 
-     * @return
-     *     The networks
-     */
-    public Networks getNetworks() {
-        return networks;
-    }
-
-    /**
-     * 
-     * @param networks
-     *     The networks
-     */
-    public void setNetworks(Networks networks) {
-        this.networks = networks;
+    public void setCategories(Categories categories) {
+        this.categories = categories;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(countries);
         dest.writeValue(dealTypes);
+        dest.writeValue(brands);
         dest.writeValue(merchants);
-        dest.writeValue(merchantTypes);
-        dest.writeValue(networks);
+        dest.writeValue(categories);
     }
 
     public int describeContents() {

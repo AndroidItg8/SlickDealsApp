@@ -16,6 +16,9 @@ import itg8.com.treatpriceapp.category.model.Category_;
 import itg8.com.treatpriceapp.category.model.Category__;
 import itg8.com.treatpriceapp.common.NetworkCall;
 import itg8.com.treatpriceapp.db.tbl.TblCategory;
+import itg8.com.treatpriceapp.db.tbl.TblMerchantType;
+import itg8.com.treatpriceapp.merchants.model.MerchantType;
+import itg8.com.treatpriceapp.merchants.model.MerchantTypeModel;
 
 /**
  * Created by itg_Android on 8/11/2017.
@@ -105,4 +108,45 @@ public class DownloadManagerImp {
 
     }
 
+    public void downloadMerchantType() {
+            NetworkCall.downloadMerchantType().subscribeOn(Schedulers.newThread()).map(new Function<MerchantTypeModel, List<TblMerchantType>>() {
+                @Override
+                public List<TblMerchantType> apply(@NonNull MerchantTypeModel merchantTypeModel) throws Exception {
+                    return generateMerchantTypeTable(merchantTypeModel);
+                }
+            }).observeOn(Schedulers.newThread())
+                    .subscribe(new Observer<List<TblMerchantType>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(List<TblMerchantType> tblMerchantTypes) {
+                                listener.onMerchantTypeListAvailable(tblMerchantTypes);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+    }
+
+    private List<TblMerchantType> generateMerchantTypeTable(MerchantTypeModel merchantTypeModel) {
+        List<TblMerchantType> tblMerchantTypes=new ArrayList<>();
+        for(MerchantType mt:merchantTypeModel.getResults().getMerchantTypes().getMerchantType())
+        {
+            TblMerchantType type=new TblMerchantType();
+            type.setName(mt.getName());
+            type.setpId(mt.getId());
+            tblMerchantTypes.add(type);
+        }
+        return tblMerchantTypes;
+    }
 }

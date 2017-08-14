@@ -3,7 +3,6 @@ package itg8.com.treatpriceapp.home;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,10 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.google.gson.Gson;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,18 +23,18 @@ import butterknife.ButterKnife;
 import itg8.com.treatpriceapp.R;
 import itg8.com.treatpriceapp.category.CategoryActivity;
 import itg8.com.treatpriceapp.common.CommonMethod;
-import itg8.com.treatpriceapp.common.Logger;
-import itg8.com.treatpriceapp.common.NetworkCall;
+import itg8.com.treatpriceapp.common.MyApplication;
 import itg8.com.treatpriceapp.db.DBHelper;
-import itg8.com.treatpriceapp.home.fragment.OfferFragment;
+import itg8.com.treatpriceapp.home.fragment.DealsFragment;
+import itg8.com.treatpriceapp.home.model.tdaysDeals.Product;
+import itg8.com.treatpriceapp.home.model.tdaysDeals.Resources;
 import itg8.com.treatpriceapp.offer.OfferActivity;
 import itg8.com.treatpriceapp.registration.RegistrationActivity;
-import itg8.com.treatpriceapp.registration.mvp.presenter.LoginViewPresenter;
 import itg8.com.treatpriceapp.service.BaseService;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class HomeActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks  {
+public class HomeActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks,DealsFragment.DealSelectedListner {
 
     private static final int RC_STORAGE = 12;
     @BindView(R.id.toolbar)
@@ -50,8 +45,6 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     FrameLayout homeFrameLayout;
     @BindView(R.id.coordinatorLayout)
     CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.viewPager)
-    itg8.com.treatpriceapp.widget.CustomViewPager viewPager;
     @BindView(R.id.navigationView)
     BottomNavigationView navigationView;
 
@@ -66,25 +59,26 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
 //                    fragment= CategoryFragment.newInstance("","");
 //                    setFragment(fragment);
                     startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
-                    break;
+                    return true;
                 case R.id.action_offer:
-                    fragment= OfferFragment.newInstance("","");
+                    fragment= DealsFragment.newInstance("","");
                     setFragment(fragment);
-                    break;
+                    return true;
                 case R.id.action_stores:
-//                    fragment= OfferFragment.newInstance("","");
+//                    fragment= DealsFragment.newInstance("","");
 //                    setFragment(fragment);
                     startActivity(new Intent(new Intent(getApplicationContext(), OfferActivity.class)));
-                    break;
+                    return true;
             }
 
             return false;
         }
     };
     private boolean extported=false;
+    private FragmentManager fm;
 
     private void setFragment(Fragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
+         fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.homeFrameLayout,fragment).addToBackStack(fragment.getClass().getSimpleName()).commit();
     }
 
@@ -97,36 +91,22 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        hashmapTest();
 
 
         startService(new Intent(this, BaseService.class));
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-            viewPager.setPagingEnabled(true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Thread1:"+ SystemClock.elapsedRealtime());
-                    try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-               System.out.println("Thread2:"+ SystemClock.elapsedRealtime());
+//            viewPager.setPagingEnabled(true);
 
-
-            }
-        }).start();
 
 
 
     }
 
-    private void hashmapTest() {
-        NetworkCall call=new NetworkCall();
-        call.printList();
-    }
+//    private void hashmapTest() {
+//        NetworkCall call=new NetworkCall();
+//        call.printList();
+//    }
 
 
     @Override
@@ -194,5 +174,18 @@ public class HomeActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
 
+    }
+
+    @Override
+    public void onDealSelected(Product product, Resources resources) {
+        Intent intent=new Intent(this,OfferActivity.class);
+        intent.putExtra(CommonMethod.PRODUCT_DESC,product);
+        intent.putExtra(CommonMethod.PRODUCT_RESOURCE,resources);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResourcesAvaiable(Resources resources) {
+        MyApplication.getInstance().storeAllResources(resources);
     }
 }

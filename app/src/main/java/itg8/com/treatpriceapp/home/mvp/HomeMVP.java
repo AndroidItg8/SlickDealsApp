@@ -5,8 +5,27 @@ package itg8.com.treatpriceapp.home.mvp;
  */
 
 public interface HomeMVP {
-    public interface HomeView{
+    public interface DealsView{
         void onTopDealsAvaialable(Object o);
-        void onListOfDealsAvaialble();
+        void onError(Throwable t);
     }
+
+    public interface DealsPresenter{
+        void onStartDownloadingDeals(int page);
+
+        void onDetached();
+    }
+
+    public interface DealsModel{
+        void onDownloadStart(DealsListener listener,int page);
+    }
+
+    public interface DealsListener{
+        void onDealsAvaiable(Object o);
+
+        void onError(Throwable e);
+    }
+
+
+
 }
