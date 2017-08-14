@@ -1,10 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:id="@+id/scrollViewMain"
     tools:context="itg8.com.treatpriceapp.offer.fragment.OfferDescriptionFragment">
 
     <RelativeLayout
@@ -14,8 +14,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/offer" />
+            android:layout_height="150dp" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
@@ -47,25 +46,113 @@
                     android:id="@+id/btn_addComment"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/offer_price_details"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5sp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="Add Comment"
-                    android:background="@drawable/textview_ripple_effect"
-                    android:padding="10dp"
-                    android:clickable="true"
                     android:layout_toEndOf="@+id/txt_comments_value"
-                    android:textColor="@color/colorBlack"
-                    android:layout_below="@+id/lbl_offer_desc"/>
+                    android:background="@drawable/textview_ripple_effect"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Add Comment"
+                    android:textColor="@color/colorBlack" />
+
+                <TableLayout
+                    android:id="@+id/offer_price_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lbl_offer_desc"
+                    android:layout_margin="16dp"
+                    >
+                    <!--"currency_iso": "USD",-->
+                    <!--"price_merchant": 7,-->
+                    <!--"price_retail": 14,-->
+                    <!--"percent_off": 50,-->
+                    <!--"estimated_price_total": 7,-->
+                    <!--"condition": "new"-->
+                    <TableRow
+                        >
+
+                        <TextView
+                            android:id="@+id/val_percent_off"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_span="3"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="18sp" />
+                    </TableRow>
+
+                    <TableRow>
+
+
+                        <TextView
+                            android:id="@+id/lbl_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="Price Offered : " />
+
+                        <TextView
+                            android:id="@+id/val_price"
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <!--<TextView-->
+                        <!--android:id="@+id/lbl_unit"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_below="@+id/val_percent_off"-->
+                        <!--android:layout_toEndOf="@+id/val_price" />-->
+
+                        <TextView
+                            android:id="@+id/lbl_original_price"
+                            android:layout_width="wrap_content"
+                            android:padding="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="Original Price :" />
+
+                        <TextView
+                            android:id="@+id/val_original_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+
+                            />
+
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/lbl_condition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="Condition" />
+
+                        <TextView
+                            android:id="@+id/val_condition"
+                            android:padding="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </TableRow>
+                </TableLayout>
 
                 <TextView
                     android:id="@+id/txt_like_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/lbl_offer_desc"
+                    android:layout_below="@+id/offer_price_details"
                     android:layout_margin="5dp"
                     android:autoLink="all"
                     android:drawablePadding="10dp"
@@ -80,7 +167,7 @@
                     android:id="@+id/txt_comments_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/lbl_offer_desc"
+                    android:layout_below="@+id/offer_price_details"
                     android:layout_margin="5dp"
                     android:layout_toEndOf="@+id/txt_like_value"
                     android:autoLink="all"
@@ -94,7 +181,6 @@
         </android.support.v7.widget.CardView>
 
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewOffer"
             android:layout_width="match_parent"
@@ -105,20 +191,20 @@
             android:id="@+id/btn_activate"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:gravity="center"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5sp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5sp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/btn_back"
+            android:gravity="center"
+            android:padding="10dp"
             android:stateListAnimator="@animator/btn_back"
             android:text="Active Account"
-            android:visibility="visible"
-            android:layout_gravity="bottom"
-            android:padding="10dp"
             android:textColor="@color/colorWhite"
-            android:background="@drawable/btn_back" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 

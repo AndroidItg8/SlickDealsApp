@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SlickDealsApp</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">DB_EXPLORT</string>
     <string name="action_category">Category</string>
     <string name="action_offer">Offer</string>
     <string name="action_stores">stores</string>
@@ -103,4 +103,6 @@
     <string name="title_activity_categories">Categories</string>
     <string name="title_categoryitem_list">Items</string>
     <string name="title_categoryitem_detail">CategoryItem Detail</string>
+
+    <string name="rationale_storage_permission">Please povide storage permission for better experience with app</string>
 </resources>

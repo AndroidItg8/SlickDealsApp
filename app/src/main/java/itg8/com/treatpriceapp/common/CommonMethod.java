@@ -1,8 +1,18 @@
 package itg8.com.treatpriceapp.common;
 
+import android.content.Context;
+import android.os.Environment;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.InetAddress;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.channels.FileChannel;
+
+import itg8.com.treatpriceapp.BuildConfig;
 
 /**
  * Created by Android itg 8 on 8/2/2017.
@@ -15,7 +25,13 @@ public class CommonMethod {
     public static final String SHARED = "SHARED";
     public static final String FOR_EMAIL = "2";
     public static final String FOR_MOBILE = "1";
-
+    public static final int P_SHOP = 1;
+    public static final int O_SHOP = 2;
+    public static final String P_BASE_URL = "http://api.popshops.com/v3/";
+    public static final String APIA ="65og5t3ou58puelfx0g84mxto";
+    public static final String APIC ="850dviorepytjfvesvgn2j5re";
+    public static final String PRODUCT_DESC = "product_desc";
+    public static final String PRODUCT_RESOURCE = "product_resources";
     public static String FromRegistration="FromRegistration";
 
     /** check Internet Connection**/
@@ -32,105 +48,36 @@ public class CommonMethod {
     }
 
 
+    public static void exportDatabse(String databaseName, Context context) {
+        try {
+//            completeFileStructure = new File(Environment.getExternalStorageDirectory() + File.separator + "nowzone", "sleep_cal.txt");
 
-
-
-    public class LastModel{
-        String lastItem;
-
-        public LastModel(String lastItem) {
-            this.lastItem = lastItem;
-        }
-
-        public String getLastItem() {
-            return lastItem;
-        }
-
-        public void setLastItem(String lastItem) {
-            this.lastItem = lastItem;
-        }
-    }
-
-    public class MiddleItem{
-        String middleHeader;
-        List<String> models;
-
-        public boolean isMiddleHeader() {
-            return isMiddleHeader;
-        }
-
-        public void setMiddleHeader(boolean middleHeader) {
-            isMiddleHeader = middleHeader;
-        }
-
-        boolean isMiddleHeader;
-
-        public String getMiddleHeader() {
-            return middleHeader;
-        }
-
-        public void setMiddleHeader(String middleHeader) {
-            this.middleHeader = middleHeader;
-        }
-
-        public List<String> getModels() {
-            return models;
-        }
-
-        public void setModels(List<String> models) {
-            this.models = models;
-        }
-    }
-
-    public class TopItem{
-        String topHeader;
-        List<MiddleItem> models;
-
-        public TopItem() {
-        }
-
-        public TopItem(String topHeader, List<MiddleItem> models) {
-            this.topHeader = topHeader;
-            this.models = models;
-        }
-
-        public String getTopHeader() {
-            return topHeader;
-        }
-
-        public void setTopHeader(String topHeader) {
-            this.topHeader = topHeader;
-        }
-
-        public List<MiddleItem> getModels() {
-            return models;
-        }
-
-        public void setModels(List<MiddleItem> models) {
-            this.models = models;
-        }
-    }
-
-
-    public List<TopItem> getGeneratedList(){
-        List<TopItem> items=new ArrayList<>();
-        for(int i=1; i<=5; i++){
-            TopItem item=new TopItem();
-            item.setTopHeader("TopHeader "+i);
-            List<MiddleItem> middleItems=new ArrayList<>();
-            for(int j=1; j<=5; j++){
-                MiddleItem middleItem=new MiddleItem();
-                middleItem.setMiddleHeader("TopHeader"+i+"-"+"MiddleHeader "+j);
-                List<String> lastItems=new ArrayList<>();
-                for(int k=1; k<5; k++){
-                    lastItems.add("TopHeader"+i+"-"+"MiddleHeader "+j+" lastItem "+k);
+            File sd = new File(Environment.getExternalStorageDirectory() , "treatPrice");
+            if(!sd.exists()){
+                sd.mkdir();
+                sd = new File(Environment.getExternalStorageDirectory() , "treatPrice"+ File.separator + "db");
+                if(!sd.exists()){
+                    sd.mkdir();
                 }
-                middleItem.setModels(lastItems);
-                middleItems.add(middleItem);
             }
-            item.setModels(middleItems);
-            items.add(item);
+            File data = Environment.getDataDirectory();
+
+            if (sd.canWrite()) {
+                String currentDBPath = "//data//" + context.getPackageName() + "//databases//" + databaseName + "";
+                String backupDBPath = "tp1.db";
+                File currentDB = new File(data, currentDBPath);
+                File backupDB = new File(sd, backupDBPath);
+
+                if (currentDB.exists()) {
+                    FileChannel src = new FileInputStream(currentDB).getChannel();
+                    FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                    dst.transferFrom(src, 0, src.size());
+                    src.close();
+                    dst.close();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return items;
     }
 }
