@@ -20,11 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import itg8.com.treatpriceapp.R;
 import itg8.com.treatpriceapp.category.CategoryActivity;
-import itg8.com.treatpriceapp.common.CommonMethod;
 import itg8.com.treatpriceapp.home.fragment.OfferFragment;
+import itg8.com.treatpriceapp.newcategory.CategoriesActivity;
 import itg8.com.treatpriceapp.offer.OfferActivity;
 import itg8.com.treatpriceapp.registration.RegistrationActivity;
-import itg8.com.treatpriceapp.registration.mvp.presenter.LoginViewPresenter;
 
 public class HomeActivity extends AppCompatActivity  {
 
@@ -40,6 +39,8 @@ public class HomeActivity extends AppCompatActivity  {
     itg8.com.treatpriceapp.widget.CustomViewPager viewPager;
     @BindView(R.id.navigationView)
     BottomNavigationView navigationView;
+    private Intent intent;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -52,16 +53,17 @@ public class HomeActivity extends AppCompatActivity  {
 //                    fragment= CategoryFragment.newInstance("","");
 //                    setFragment(fragment);
                     startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
-                    break;
+                    return true;
                 case R.id.action_offer:
                     fragment= OfferFragment.newInstance("","");
                     setFragment(fragment);
-                    break;
+                    return true;
+
                 case R.id.action_stores:
 //                    fragment= OfferFragment.newInstance("","");
 //                    setFragment(fragment);
                     startActivity(new Intent(new Intent(getApplicationContext(), OfferActivity.class)));
-                    break;
+                    return true;
             }
 
             return false;
@@ -84,22 +86,6 @@ public class HomeActivity extends AppCompatActivity  {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
             viewPager.setPagingEnabled(true);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Thread1:"+ SystemClock.elapsedRealtime());
-                    try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-               System.out.println("Thread2:"+ SystemClock.elapsedRealtime());
-
-
-            }
-        }).start();
-
-
 
     }
 
@@ -126,7 +112,11 @@ public class HomeActivity extends AppCompatActivity  {
                break;
 
            case R.id.action_login:
-               Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+          intent = new Intent(getApplicationContext(), RegistrationActivity.class);
+               callRegistrationActvity("fromRegistration", intent);
+               break;
+           case R.id.action_category:
+           intent = new Intent(getApplicationContext(), CategoriesActivity.class);
                callRegistrationActvity("fromRegistration", intent);
                break;
            default:
@@ -136,7 +126,7 @@ public class HomeActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
      public void callRegistrationActvity(String from , Intent intent){
-         intent.putExtra(CommonMethod.FromRegistration,"");
+       //  intent.putExtra(CommonMethod.FromRegistration,"");
        //  Animation bottomUp = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bottom_up);
          startActivity(intent);
      }

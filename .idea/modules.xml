@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SlickDealsApp.iml" filepath="$PROJECT_DIR$/SlickDealsApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TreatPrice.iml" filepath="$PROJECT_DIR$/TreatPrice.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

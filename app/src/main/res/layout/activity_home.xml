@@ -65,9 +65,9 @@
         android:fitsSystemWindows="true"
         android:visibility="visible"
         app:elevation="08dp"
-        android:background="@android:color/white"
+        app:itemBackground="@android:color/white"
         app:itemIconTint="@drawable/nav_item_icon"
-        app:itemTextColor="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_icon"
         app:menu="@menu/navigation_home" />
 
 

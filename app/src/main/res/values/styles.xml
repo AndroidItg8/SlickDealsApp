@@ -57,5 +57,17 @@
         <item name="android:textCursorDrawable">@color/colorBlue</item>
     </style>
 
+    <style name="MSV_ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:paddingLeft">08dp</item>
+        <item name="android:paddingRight">08dp</item>
+    </style>
+
+    <style name="checkBoxMaterial" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
 
 </resources>
