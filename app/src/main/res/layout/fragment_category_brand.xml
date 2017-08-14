@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="itg8.com.treatpriceapp.newcategory.CategoryBrandFragment">
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:id="@+id/autoComplete"/>
+
+   <android.support.v7.widget.SearchView
+       android:layout_width="match_parent"
+       android:layout_height="40dp"
+       android:id="@+id/searchView"
+       android:layout_below="@+id/autoComplete"
+       android:layout_margin="20dp" />
+
+    <TextView
+        android:id="@+id/lbl_topBrand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchView"
+        android:layout_centerHorizontal="true"
+        style="@style/TextViewStyles"
+        android:text="Top Brand"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lbl_topBrand"
+        android:layout_margin="10dp"
+        android:id="@+id/recyclerViewBrand"/>
+
+</RelativeLayout>

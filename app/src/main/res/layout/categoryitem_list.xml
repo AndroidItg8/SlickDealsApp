@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="itg8.com.treatpriceapp.newcategory.CategoryItemListFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="itg8.com.treatpriceapp.newcategory.CategoryItemListActivity"
+    tools:listitem="@layout/categoryitem_list_content">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/categoryitem_list"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/list_selector"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/categoryitem_list_content" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/categoryitem_detail_container"
+        android:layout_toEndOf="@+id/categoryitem_list" />
+
+
+</RelativeLayout>
+
+

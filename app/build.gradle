@@ -29,6 +29,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -42,6 +43,10 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     compile 'javax.validation:validation-api:1.1.0.Final'
+
+ //   compile 'org.glassfish.main:javax.annotation:4.0-b33'
+ //   compile 'com.android.support:recyclerview-v7:25.3.1'
+
      compile 'org.glassfish.main:javax.annotation:4.0-b33'
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'io.reactivex.rxjava2:rxjava:2.0.8'

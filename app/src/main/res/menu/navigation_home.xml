@@ -3,22 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_category"
-        android:orderInCategory="100"
         android:title="@string/action_category"
         android:icon="@drawable/ic_category"
-        app:showAsAction="never" />
+       />
     <item
         android:id="@+id/action_offer"
-        android:orderInCategory="100"
         android:title="@string/action_offer"
         android:icon="@drawable/ic_offer"
-        app:showAsAction="never" />
+       />
     <item
         android:id="@+id/action_stores"
-        android:orderInCategory="100"
         android:title="@string/action_stores"
         android:icon="@drawable/ic_store_black_24dp"
-        app:showAsAction="never" />
+       />
 
 
 </menu>
